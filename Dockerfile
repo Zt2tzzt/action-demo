@@ -6,6 +6,6 @@ COPY public /react-aribnb/public
 COPY src /react-aribnb/src
 COPY package.json /react-aribnb/package.json
 
-RUN npn install
+RUN npm install
 
 CMD ["npm", "start"]
