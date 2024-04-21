@@ -11,18 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 查看幻想信息
+      - name: 查看环境信息
         run:
           pwd
-          npm --version
+          npm -v
+          npm install -g pnpm
+          pnpm -v
+
 
       - name: 读取仓库内容
         uses: actions/checkout@v4
 
       - name: 安装依赖&项目打包
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm build
 
       - name: 项目部署
         uses: JamesIves/github-pages-deploy-action@v4 # 部署在 github pages 上
