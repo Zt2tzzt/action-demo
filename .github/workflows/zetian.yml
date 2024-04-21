@@ -1,12 +1,31 @@
+name: 打包 React 项目
+
 on: push
 
+permissions:
+  contents: write
+
 jobs:
-  job1:
+  npm-build:
+    name: npm-build工作
     runs-on: ubuntu-latest
+
     steps:
-      - run: pwd
-      - run: ls
-  job2:
-    runs-on: windows-latest
-    steps:
-      - run: node --version
+      - name: 查看幻想信息
+        run:
+          pwd
+          npm --version
+
+      - name: 读取仓库内容
+        uses: actions/checkout@v4
+
+      - name: 安装依赖&项目打包
+        run: |
+          npm install
+          npm run buid
+
+      - name: 项目部署
+        uses: JamesIves/github-pages-deploy-action@v4 # 部署在 github pages 上
+        with:
+          branch: gh-pages # 会创建 gh-pages 分支，并把上产环境文件放到该分支里。
+          folder: build # react 打包后的生产环境文件，在 build 文件夹里。
