@@ -21,4 +21,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: zt2tzzt/react-aribnb:latest # 和 dockerhub 仓库对应。
+          tags: zt2tzzt/react-aribnb:latest # 和 dockerhub 仓库对应
