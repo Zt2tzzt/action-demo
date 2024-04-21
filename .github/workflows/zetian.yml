@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: 查看环境信息
-        run:
+        run: |
           pwd
           npm -v
           npm install -g pnpm
