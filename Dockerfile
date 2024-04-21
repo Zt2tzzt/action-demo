@@ -5,8 +5,7 @@ WORKDIR /react-aribnb
 COPY public /react-aribnb/public
 COPY src /react-aribnb/src
 COPY package.json /react-aribnb/package.json
-COPY package-lock.json /react-aribnb/package-lock.json
 
-RUN pnpn install
+RUN npn install
 
-CMD ["pnpm", "start"]
+CMD ["npm", "start"]
