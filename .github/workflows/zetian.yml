@@ -1,9 +1,6 @@
-name: 打包 React 项目
+name: 构建镜像并推送到DcokerHub
 
 on: push
-
-permissions:
-  contents: write
 
 jobs:
   npm-build:
@@ -11,24 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 查看环境信息
-        run: |
-          pwd
-          npm -v
-          npm install -g pnpm
-          pnpm -v
-
-
       - name: 读取仓库内容
         uses: actions/checkout@v4
 
-      - name: 安装依赖&项目打包
-        run: |
-          pnpm install
-          pnpm build
-
-      - name: 项目部署
-        uses: JamesIves/github-pages-deploy-action@v4 # 部署在 github pages 上
+      - name: 登录DcokerHub
+        uses: docker/login-action@v3 # 利用现成的 action
         with:
-          branch: gh-pages # 会创建 gh-pages 分支，并把上产环境文件放到该分支里。
-          folder: build # react 打包后的生产环境文件，在 build 文件夹里。
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 构建并推送到DcokerHub
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: zt2tzzt/react-aribnb:latest # 和 dockerhub 仓库对应。
